@@ -5,6 +5,7 @@ import (
     "errors"
     "fmt"
     "net/http"
+    "strings"
 )
 
 var DefaultController = &defaultController
@@ -32,11 +33,14 @@ func GetController(controllerName string) (reflect.Type, error) {
 }
 
 func Do(controllerName string, actionName string, resp http.ResponseWriter, r *http.Request) error {
+
     controllerType, err := GetController(controllerName)
     if err != nil {
         return err
     }
 
+    controllerName = strings.ToLower(controllerName)
+    actionName = strings.ToLower(actionName)
     tmp := []byte(actionName + "Action")
     tmp[0] -= 32
     actionName = string(tmp)

@@ -13,6 +13,7 @@ func init() {
 }
 
 func (i *indexController)IndexAction(resp http.ResponseWriter, r *http.Request) {
+//    fmt.Fprint(resp, r)
     fmt.Fprint(resp, "indexAction")
-    fmt.Fprint(resp, r)
+    return
 }
