@@ -4,8 +4,8 @@ import(
     "fmt"
     "net/http"
     "ff/controller"
-    "utils/festival"
     "passport"
+    pages "app/models/page/festival" 
 )
 
 type festivalController struct{}
@@ -15,11 +15,12 @@ func init() {
 }
 
 func (f *festivalController)IndexAction(resp http.ResponseWriter, r *http.Request) {
-    stageNow := festival.Stage()
-    uss, _ := passport.CheckLogin(resp, r)
+    uss, err  := passport.CheckLogin(r)
 
-    fmt.Fprintln(resp, "cookie;", r.Cookies())
-    fmt.Fprintln(resp, "stage:", stageNow)
-    fmt.Fprintln(resp, "uss:")
-    fmt.Fprintln(resp, uss)
+    if err != nil {
+        uss, _ = passport.Login(resp)
+    }
+
+    pInfo, err := (&pages.Index{}).Exec(uss)
+    fmt.Fprintln(resp, pInfo, err)
 }
