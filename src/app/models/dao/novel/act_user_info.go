@@ -16,13 +16,13 @@ type ActUserInfo struct {
     Update_time int64
 }
 
-func (n *novel)GetActUserInfo(id int64) (ActUserInfo, error) {
+func (n *Novel)GetActUserInfo(id int64) (ActUserInfo, error) {
     sql := "SELECT "
     sql += "`id`, `uid`, `cuid`, `act_id`, `stage`, "
     sql += "`gifts_count`, `platform`, "
     sql += "`create_time`, `update_time` "
     sql += "FROM "
-    sql += TableInfo + " "
+    sql += TableActUserInfo + " "
     sql += "WHERE "
     sql += "`id` = ?"
 
@@ -32,7 +32,7 @@ func (n *novel)GetActUserInfo(id int64) (ActUserInfo, error) {
     return info, err 
 }
 
-func (n *novel)GetActUserInfoByUid(uid int64, stage int64) (ActUserInfo, error) {
+func (n *Novel)GetActUserInfoByUid(uid int64, stage int64) (ActUserInfo, error) {
     condition := make([]interface{}, 1, 2)
    
     sql := "SELECT "
@@ -40,7 +40,7 @@ func (n *novel)GetActUserInfoByUid(uid int64, stage int64) (ActUserInfo, error) 
     sql += "`gifts_count`, `platform`, "
     sql += "`create_time`, `update_time` "
     sql += "FROM "
-    sql += TableInfo + " "
+    sql += TableActUserInfo + " "
     sql += "WHERE "
     sql += "`uid` = ? "
 

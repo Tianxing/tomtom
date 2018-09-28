@@ -6,17 +6,18 @@ import (
 )
 
 const DbName = "novel"
-const TableInfo = "novel_act_user_info"
+const TableActUserInfo = "novel_act_user_info"
+const TableActUserDrawgiftInfo = "novel_act_user_drawgift_info"
 
-type novel struct {
+type Novel struct {
    *dao.Dao
 }
 
-func New() *novel {
+func New() *Novel {
     db, exists := databases.Conns[DbName]
     if !exists {
         return nil
     }
 
-    return &novel{Dao:&dao.Dao{DB:db}}
+    return &Novel{Dao:&dao.Dao{DB:db}}
 }

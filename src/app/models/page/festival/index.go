@@ -15,11 +15,12 @@ func (i *Index)Exec(uss passport.Session) (string, error) {
     stage := utils.Stage()
     uid := uss.Uid()
     
-    user := dataUser.User{}
-    userInfo, err := user.GetInfoByUid(uid, stage)
+    user := dataUser.New()
+    userInfo, err := user.GetActUserInfoByUid(uid, stage)
+    gifts, err := user.GetActUserDrawgiftInfoByUid(uid, stage)
     if err != nil {
         return "", err
     }
 
-    return fmt.Sprintf("%+v", userInfo), nil
+    return fmt.Sprintf("%+v\n\n%+v", userInfo, gifts), nil
 }
